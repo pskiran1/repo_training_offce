@@ -75,15 +75,6 @@ long myIoctl(struct file *fp, unsigned int pid, unsigned long k)
 	printk(KERN_CONT "PID - %d", tasks1->pid);
 	printk(KERN_CONT " PPID - %d\n", tasks1->parent->pid);
 	}
-	//tasks1 = pid1->tasks.next->next;
-	//tasks2 = pid1->tasks.next;
-/*	while(tasks1 != tasks2) {
-	printk(KERN_CONT " tasks - %p\n", tasks1);
-	tasks1 = tasks1->next;
-	}
-//	printk(KERN_CONT " addre - %p\n", pid1->ptrace_entry.next->next->next->next);
-	
-//	}*/
 		
 		
 

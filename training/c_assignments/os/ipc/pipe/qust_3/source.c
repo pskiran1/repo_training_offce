@@ -11,7 +11,7 @@ int main()
 	int fd;
 
 	char *str = NULL;
-	
+
 	int status;
 
 	if(NULL == (str = (char *)malloc(sizeof(char) * 20))) {
@@ -29,17 +29,17 @@ int main()
 		err_abort(fd, "open is failed");
 	}
 
-	printf("\nenter the string \n");
+	printf("enter the string \n");
 	fgets(str, MAX, stdin);
 
 	write(fd, str, 20);
-	
+
 	close(fd);
-	
+
 	unlink("./mkfifo");
-	
+
 	return 0;
 }
-			
-	
+
+ 
 

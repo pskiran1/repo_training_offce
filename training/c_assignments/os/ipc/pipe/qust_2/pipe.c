@@ -5,11 +5,10 @@
 #include <string.h>
 
 
-int main()
+int main(void)
 {
 	int pipefd[2]; //declaration
 	pid_t cpid;
-	char buf;
 
 
 	if (pipe(pipefd) == -1) {
@@ -28,7 +27,7 @@ int main()
 		close(pipefd[1]);          
 
 		execlp("wc","wc",NULL);	
-		_exit(EXIT_SUCCESS);
+		exit(EXIT_SUCCESS);
 
 	} else {           
 	   dup2(pipefd[1], 1);	
@@ -38,6 +37,9 @@ int main()
 
 		exit(EXIT_SUCCESS);
 	}
+	
+	return 0;
+
 }
 
 
