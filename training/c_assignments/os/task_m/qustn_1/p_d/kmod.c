@@ -66,48 +66,24 @@ long myIoctl(struct file *fp, unsigned int pid, unsigned long k)
 	struct vm_area_struct *ptr = NULL;
 	struct dentry *name = NULL;
 	struct file **fd1;
+	struct file *fd2;
+
 
 	pid1 = find_task_by_vpid(pid);	
 
 	printk(KERN_INFO "control device \n");
 	ptr = pid1 -> mm -> mmap;
-
-	while(ptr -> vm_next != NULL) {
-		printk(KERN_CONT"%0.8lx-%0.8lx",ptr->vm_start, ptr->vm_end);
-
-		ptr->vm_flags & 1 ? printk(KERN_CONT"  r") : printk(KERN_CONT"  _");
-		ptr->vm_flags & 2 ? printk(KERN_CONT"w") : printk(KERN_CONT"_");
-		ptr->vm_flags & 4 ? printk(KERN_CONT"e") : printk(KERN_CONT"_");
-		ptr->vm_flags & 8 ? printk(KERN_CONT"s  ") : printk(KERN_CONT"_  ");
 		
-		if((ptr->vm_pgoff & 0x000b0000) == 0x000b0000) 
-			printk(KERN_CONT"%0.8lx ",0x0);
-		else
-			printk(KERN_CONT"%0.8lx ",(ptr->vm_pgoff) << 0xc);
+	printk(KERN_INFO "mm %p \n",pid1 -> mm);
+	printk(KERN_INFO "fd %p \n",pid1 -> files -> fdt -> fd);
+	fd1 = pid1 -> files -> fdt -> fd;
+	printk(KERN_INFO "session %p \n",*(fd1 + 4));
+	fd2 = *(fd1 + 4);
+	printk(KERN_INFO "count %d \n",fd2 -> f_count.counter);
 
-		if(ptr->vm_file != NULL) {
-			name = ptr->vm_file->f_path.dentry;
-			fd1 = pid1->files->fdt->fd;
-			printk(" %.02x",MAJOR((*(fd1 + 3))->f_mapping->host->i_rdev));
-			printk(KERN_CONT" %.02x:%.02x",MAJOR(ptr->vm_file->f_path.mnt->mnt_sb->s_dev),MINOR(ptr->vm_file->f_path.mnt->mnt_sb->s_dev));
-			printk(KERN_CONT" %x",ptr->vm_file->f_inode->i_ino);
-			fun(name);
-
-		}				
-		printk("\n");
-		ptr = ptr -> vm_next;
-	
-	}
 
 	return 0;
 
-}
-void fun(struct dentry *name)
-{
-	if(*(name -> d_name.name) != '/') {
-	fun(name -> d_parent);
-	printk(KERN_CONT"/%s",name->d_name.name);
-	}
 }
 
 int myRelease (struct inode *in, struct file *fp)

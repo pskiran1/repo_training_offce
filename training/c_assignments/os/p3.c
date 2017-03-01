@@ -20,6 +20,8 @@ struct link *next;
 struct link *prev;
 };
 
+
+
 struct task {
 	long state;
 	int pid;

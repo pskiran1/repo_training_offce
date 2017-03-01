@@ -1,12 +1,11 @@
-#include "p1.h"
 #include<stdio.h>
+#include<unistd.h>
 
 #define MAX 10
 int main()
 {
 
 
-	printf("a = %d\n", MAX);
-
+	write(1,"hello",5);
 	return 0;
 }

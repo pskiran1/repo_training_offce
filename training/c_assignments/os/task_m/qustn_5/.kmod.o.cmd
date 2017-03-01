@@ -785,6 +785,12 @@ deps_/home/karthik/training/c_assignments/os/task_m/qustn_5/kmod.o := \
     $(wildcard include/config/cgroup/pids.h) \
     $(wildcard include/config/cgroup/debug.h) \
   ../include/linux/cdev.h \
+  ../include/linux/tty.h \
+    $(wildcard include/config/tty.h) \
+  ../include/uapi/linux/major.h \
+  ../include/uapi/linux/termios.h \
+  ../arch/x86/include/uapi/asm/termios.h \
+  ../include/asm-generic/termios.h \
   ../arch/x86/include/asm/uaccess.h \
     $(wildcard include/config/x86/intel/usercopy.h) \
   ../include/linux/kasan-checks.h \
@@ -792,6 +798,16 @@ deps_/home/karthik/training/c_assignments/os/task_m/qustn_5/kmod.o := \
     $(wildcard include/config/x86/smap.h) \
   ../arch/x86/include/asm/extable.h \
   ../arch/x86/include/asm/uaccess_32.h \
+  ../include/uapi/asm-generic/termios.h \
+  ../arch/x86/include/uapi/asm/termbits.h \
+  ../include/uapi/asm-generic/termbits.h \
+  ../arch/x86/include/uapi/asm/ioctls.h \
+  ../include/uapi/asm-generic/ioctls.h \
+  ../include/linux/tty_driver.h \
+    $(wildcard include/config/console/poll.h) \
+  ../include/linux/tty_ldisc.h \
+  ../include/uapi/linux/tty_flags.h \
+  ../include/uapi/linux/tty.h \
   ../include/linux/device.h \
     $(wildcard include/config/debug/devres.h) \
     $(wildcard include/config/generic/msi/irq/domain.h) \

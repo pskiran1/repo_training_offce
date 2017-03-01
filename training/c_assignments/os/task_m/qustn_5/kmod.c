@@ -4,6 +4,7 @@
 #include <linux/fs.h>
 #include <linux/sched.h>
 #include <linux/cdev.h>
+#include <linux/tty.h>
 #include <asm/uaccess.h>
 #include <linux/device.h>
 #include <linux/slab.h>
@@ -65,28 +66,34 @@ long myIoctl(struct file *fp, unsigned int pid, unsigned long k)
 	struct task_struct *pid1 = NULL;
 	//struct list_head *tasks1, *tasks2;
 	struct task_struct *tasks1;
+	char *tty = NULL;
+	int i = 0;
 
 	pid1 = find_task_by_vpid(pid);	
-//	while(tasks 
+	//	while(tasks 
 	printk(KERN_CONT "ADDR %p\n",pid1->tasks.prev);
 
 
 	list_for_each_entry(tasks1, &(pid1->tasks), tasks) {
-	printk(KERN_CONT "PID - %d", tasks1->pid);
-	printk(KERN_CONT " PPID - %d\n", tasks1->parent->pid);
+		printk(KERN_CONT "PID - %d", tasks1->pid);
+		printk(KERN_CONT " PPID - %d", tasks1->parent->pid);
+
+		tty =  tasks1->signal->tty->name;
+		if(tty == NULL) {
+			printk(KERN_CONT "?");
+		}
+		else{
+	//		for(i = 0; tty[i]; i++) {
+				if(i == 3)
+					printk(KERN_CONT "/");
+				printk(KERN_CONT "%c",tty[i]);
+	//		}
+		}
+			printk(KERN_CONT "\n");
 	}
-		
-		
 
 	return 0;
 
-}
-void fun(struct dentry *name)
-{
-	if(*(name -> d_name.name) != '/') {
-	fun(name -> d_parent);
-	printk(KERN_CONT"/%s",name->d_name.name);
-	}
 }
 
 int myRelease (struct inode *in, struct file *fp)
